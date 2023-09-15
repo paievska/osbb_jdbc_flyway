@@ -20,6 +20,7 @@ public class App {
             for (Owner owner : owners) {
                 logger.info(owner);
             }
+            osbbCrud.saveResultToFile(owners, "result.txt");
         } catch (IOException | SQLException e) {
             logger.fatal(e);
         }
