@@ -3,15 +3,15 @@ package org.example.data;
 import org.apache.log4j.Logger;
 import org.flywaydb.core.Flyway;
 
+import java.io.BufferedWriter;
 import java.io.Closeable;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.example.data.Config.PASSWORD;
-import static org.example.data.Config.JDBC_URL;
-import static org.example.data.Config.USERNAME;
+import static org.example.data.Config.*;
 
 public class OsbbCrud implements Closeable {
     private static final Logger logger = Logger.getLogger(OsbbCrud.class);
@@ -79,5 +79,26 @@ public class OsbbCrud implements Closeable {
             logger.error("Error executing SQL query: " + e.getMessage());
         }
         return owners;
+    }
+
+    public void saveResultToFile(List<Owner> owners, String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Owner owner : owners) {
+                String line = String.format(
+                        "Ім'я: %s, Прізвище: %s, Email: %s, Номер будинку: %s, Номер квартири: %s, Площа квартири: %.2f, Адреса будинку: %s%n",
+                        owner.getName(),
+                        owner.getSurname(),
+                        owner.getEmail(),
+                        owner.getBuildingNumber(),
+                        owner.getApartmentNumber(),
+                        owner.getArea(),
+                        owner.getAddress()
+                );
+                writer.write(line);
+            }
+            logger.info("Results are successful added to file  " + filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
