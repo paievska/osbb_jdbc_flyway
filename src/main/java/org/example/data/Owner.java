@@ -1,4 +1,5 @@
 package org.example.data;
+
 public class Owner {
     private final String name;
     private final String surname;
@@ -19,9 +20,38 @@ public class Owner {
         this.area = area;
         this.address = address;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getBuildingNumber() {
+        return buildingNumber;
+    }
+
+    public String getApartmentNumber() {
+        return apartmentNumber;
+    }
+
+    public float getArea() {
+        return area;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
     @Override
     public String toString() {
-        return  "ownerName= " + name +
+        return "ownerName= " + name +
                 ", surname= " + surname +
                 ", ownerEmail= " + email +
                 ", buildingNumber= " + buildingNumber +
